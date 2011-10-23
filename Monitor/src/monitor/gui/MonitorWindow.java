@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.accessibility.AccessibleContext;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
@@ -20,12 +21,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+import monitor.network.DisplayPanel;
 
 /**
  *
  * @author Jarek
  */
 public class MonitorWindow extends JFrame {
+    
     private int windowDefaultWidth = 500;
     private int windowDefaultHeight = 300;
     
@@ -64,6 +67,7 @@ public class MonitorWindow extends JFrame {
         //Menu of packets
         subMenu = new JMenu("Packets");
         menuItem = new JMenuItem("Display");
+        menuItem.addActionListener(new MenuActionListener(new DisplayPanel()));
         subMenu.add(menuItem);
         menuItem = new JMenuItem("Save");
         subMenu.add(menuItem);
@@ -91,7 +95,6 @@ public class MonitorWindow extends JFrame {
         //Build second menu in the menu bar.
         menu = new JMenu("Options");
         menuBar.add(menu);
-
         
         //defining frame for window
         this.setBounds(windowDefaultX, windowDefaultY, windowDefaultWidth, windowDefaultHeight);
@@ -99,5 +102,36 @@ public class MonitorWindow extends JFrame {
         this.setJMenuBar(menuBar);
         
         this.add(mJPanel);
+    }
+    
+    /**
+     * Private class for changing panels in application frame window
+     */
+    private class MenuActionListener implements ActionListener{
+
+        private JPanel mJPanel;
+        
+        public MenuActionListener(JPanel mJPanel){
+            this.mJPanel = mJPanel;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changePanel(this.mJPanel);
+        }
+        
+    }
+    
+    /**
+     * Method for changing panels in frame
+     * @param mJPanel
+     */
+    private void changePanel(JPanel mJPanel){
+        this.remove(this.mJPanel);
+        this.add(mJPanel);
+        this.mJPanel = mJPanel;
+        
+        this.invalidate();
+        this.validate();
     }
 }

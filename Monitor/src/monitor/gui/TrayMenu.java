@@ -44,7 +44,7 @@ public class TrayMenu {
     private PopupMenu subMenuMonitor;
     
     
-    private String imageUri = "Images/tray_icon_1.gif";
+    private String imageUri = "Images/tray_icon_3.gif";
     private String trayIconName = "Monitor";
     private String trayExit = "Exit";
     private String trayElement2 = "Monitor";
@@ -58,7 +58,7 @@ public class TrayMenu {
         if (SystemTray.isSupported()) {
             
             
-            //declarin popupmenues
+            //declaring popupmenues
             mainMenu = trayMakeMenu("Menu");
             subMenuMonitor = trayMakeMenu(trayElement2);
             

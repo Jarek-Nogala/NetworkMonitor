@@ -4,6 +4,8 @@
  */
 package monitor;
 
+import jpcap.JpcapCaptor;
+import jpcap.NetworkInterface;
 import monitor.gui.MonitorWindow;
 import monitor.gui.TrayMenu;
 import monitor.network.PortListener;
@@ -25,6 +27,13 @@ public class Monitor {
         TrayMenu tray = new TrayMenu(mJFrame);
         mJFrame.setVisible(true);
         
+        //
+        NetworkInterface[] devices = JpcapCaptor.getDeviceList();
+        String[] str = new String[devices.length];
+        for(int i = 0; i < devices.length; i++){
+            str[i] = devices[i].name;
+        }
+        mJFrame.updateInterfacesList(str);
         //Obtain the list of network interfaces
         //change this code - it should be run from menu!!
 //        System.out.println("Sluchanie portow");
@@ -32,7 +41,7 @@ public class Monitor {
 //        x.startAll();
 //        
 //        try {
-//            Thread.sleep(5000);
+//            Thread.sleep(10000);
 //        } catch (InterruptedException ex) {}
 //        
 //       

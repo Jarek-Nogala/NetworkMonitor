@@ -5,6 +5,9 @@ import computer.elevation.Elevation;
 import computer.services.Net;
 import java.io.File;
 import java.util.Vector;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 public class Computer {
 
@@ -14,17 +17,33 @@ public class Computer {
         
         if(args.length >0 && args[0].equals("elevated")){
             //do program
+            makeDialog("Elevated");
             Net netObj = new Net();
             Vector names = netObj.getServicesList();
 
+            String Effect = "";
             for(int i = 0; i < names.size(); i++){
-                System.out.println(names.elementAt(i));
+                Effect += (String) names.elementAt(i) + '\n';
+                //System.out.println(names.elementAt(i));
             }
+            makeDialog(Effect);
         }
         else{//do elevation
+            makeDialog("Elevation");
             Elevation.getElevation();
         }
     }
+    
+    
+   public static void makeDialog(String text){
+      JFrame frame = new JFrame("Show Message Dialog");
+      JTextArea mJTextArea = new JTextArea(text);
+      frame.add(mJTextArea);
+      frame.setSize(400, 400);
+      frame.setVisible(true);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+
     
             
     //        SystemInfo si = new SystemInfo();

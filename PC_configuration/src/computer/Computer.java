@@ -9,21 +9,22 @@ import javax.swing.JTextArea;
 
 public class Computer {
 
-    
+    public static JTextArea mJTextArea = new JTextArea();
     
     public static void main(String[] args) {
-        
+        makeDialog();
         if(args.length >0 && args[0].equals("elevated")){
             //do program
             Net netObj = new Net();
-            Vector names = netObj.getServicesList();
+            Vector names = netObj.getNetStartList();
 
             String Effect = "";
+            
+            Computer.addText("Run matafaka");
             for(int i = 0; i < names.size(); i++){
-                Effect += (String) names.elementAt(i) + '\n';
-                //System.out.println(names.elementAt(i));
+                Effect += Net.getInfoAboutService(9,(String) names.elementAt(i)) + '\n';
             }
-            makeDialog(Effect);
+            addText(Effect);
         }
         else{//do elevation
             Elevation.getElevation();
@@ -31,14 +32,18 @@ public class Computer {
     }
     
     
-   public static void makeDialog(String text){
+   public static void makeDialog(){
       JFrame frame = new JFrame("Show Message Dialog");
-      JTextArea mJTextArea = new JTextArea(text);
       frame.add(mJTextArea);
       frame.setSize(400, 400);
       frame.setVisible(true);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
+   }
+   
+   public static void addText(String newText){
+       String text = mJTextArea.getText() + "\r\n" + newText;
+       mJTextArea.setText(text);
+   }
 
     
             

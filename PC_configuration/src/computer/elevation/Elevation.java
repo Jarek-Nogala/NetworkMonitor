@@ -28,8 +28,7 @@ public class Elevation {
         String thisAppPath = thisApp.getAbsolutePath();
         String uacPath = uacExample.getAbsolutePath();
         try {
-            String command = uacPath + " -k `java" + thisAppPath + "\\" + thisProgramName + " \"elevated\"`";
-            Computer.makeDialog(command);
+            String command = uacPath + " -k java " + thisAppPath + "/" + thisProgramName + " \"elevated\"";
             Runtime.getRuntime().exec(command);//uacExample.getAbsolutePath() + " ls");
         } catch (IOException ex) {
             System.out.println("ERROR in Elevation class: " + ex.getMessage());

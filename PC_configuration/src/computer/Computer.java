@@ -3,9 +3,7 @@ package computer;
 
 import computer.elevation.Elevation;
 import computer.services.Net;
-import java.io.File;
 import java.util.Vector;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
@@ -17,7 +15,6 @@ public class Computer {
         
         if(args.length >0 && args[0].equals("elevated")){
             //do program
-            makeDialog("Elevated");
             Net netObj = new Net();
             Vector names = netObj.getServicesList();
 
@@ -29,7 +26,6 @@ public class Computer {
             makeDialog(Effect);
         }
         else{//do elevation
-            makeDialog("Elevation");
             Elevation.getElevation();
         }
     }

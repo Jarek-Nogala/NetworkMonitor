@@ -13,22 +13,24 @@ public class Computer {
     
     public static void main(String[] args) {
         makeDialog();
-        if(args.length >0 && args[0].equals("elevated")){
-            //do program
-            Net netObj = new Net();
-            Vector names = netObj.getNetStartList();
-
-            String Effect = "";
-            
-            Computer.addText("Run matafaka");
-            for(int i = 0; i < names.size(); i++){
-                Effect += Net.getInfoAboutService(9,(String) names.elementAt(i)) + '\n';
-            }
-            addText(Effect);
-        }
-        else{//do elevation
-            Elevation.getElevation();
-        }
+//        if(args.length >0 && args[0].equals("elevated")){
+//            //do program
+//            Net netObj = new Net();
+//            Vector names = netObj.getNetStartList();
+//
+//            String Effect = "";
+//            
+//            Computer.addText("Run matafaka");
+//            for(int i = 0; i < names.size(); i++){
+//                Effect += Net.getInfoAboutService(9,(String) names.elementAt(i)) + '\n';
+//            }
+//            addText(Effect);
+//        }
+//        else{//do elevation
+//            Elevation.getElevation();
+//        }
+        
+        
     }
     
     

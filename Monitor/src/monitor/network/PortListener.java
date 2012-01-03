@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package monitor.network;
 
+import java.util.concurrent.BlockingQueue;
+import javax.swing.JTextArea;
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 import monitor.Log;
@@ -11,7 +9,7 @@ import monitor.threads.PortCaptorThread;
 
 /**
  *
- * @author Właściciel
+ * @author Jarosław Nogała
  */
 public class PortListener {
     
@@ -20,12 +18,12 @@ public class PortListener {
     
     private String TAG = "PortListener";
     
-    public PortListener(){
+    public PortListener(BlockingQueue<String> mQueuePackets){
         devices = JpcapCaptor.getDeviceList();
         captor = new PortCaptorThread[devices.length];
         int i = 0;
         for( NetworkInterface device : devices){
-            captor[i] = new PortCaptorThread(device);
+            captor[i] = new PortCaptorThread(device,mQueuePackets);
             i++;
         }
     }

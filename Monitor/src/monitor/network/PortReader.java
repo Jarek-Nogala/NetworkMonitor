@@ -8,6 +8,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.BlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 import jpcap.PacketReceiver;
 import jpcap.packet.Packet;
 import monitor.Log;
@@ -19,8 +24,11 @@ import monitor.Log;
 public class PortReader implements PacketReceiver {
     
     BufferedWriter out;
+    BlockingQueue<String> mQueuePackets;// JTextArea that is updated in display panel
     
-    public PortReader(File mFile) {
+    public PortReader(File mFile, BlockingQueue<String> mQueuePackets) {
+        this.mQueuePackets = mQueuePackets;
+        
         try{
             
             if(!mFile.exists())
@@ -39,7 +47,7 @@ public class PortReader implements PacketReceiver {
             this.out.close();
             this.out = null;
         } catch (IOException ex) {
-            Log.i("PortReader","PortReader close error ");
+            Log.i("PortReader","PortReader close error: " + ex.getMessage());
         }
     }
     
@@ -49,12 +57,20 @@ public class PortReader implements PacketReceiver {
             try {
                 this.out.write(packet.toString() + "\n" );
             } catch (IOException ex) {
-                Log.i("PortReader","Packet File write error");
-                try {
-                    this.out.close();
-                } catch (IOException ex1) {
-                    Log.i("PortReader","Packet File close error");
-                }
+                Log.i("PortReader","Packet File write error: " + ex.getMessage());
+//                try {
+//                    this.out.close();
+//                } catch (IOException ex1) {
+//                    Log.i("PortReader","Packet File close error");
+//                }
             }
+        if(this.mQueuePackets != null){
+            try {
+                Log.i("PortReader","Put in queue: " + packet.toString());
+                this.mQueuePackets.put(packet.toString());
+            } catch (InterruptedException ex) {
+                Log.i("PortReader","Queue put error: " + ex.getMessage());
+            }
+        }
     }
 }

@@ -4,21 +4,17 @@
  */
 package monitor.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.BlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-import javax.swing.border.EmptyBorder;
 import monitor.network.DisplayPanel;
 
 /**
@@ -40,12 +36,14 @@ public class MonitorWindow extends JFrame {
 //    private JMenu;
 //    private JMenu;
     
+    public BlockingQueue<String> mQueuePackets;//queue for communication between threads
     
     
     
-    
-    public MonitorWindow(){
+    public MonitorWindow(BlockingQueue<String> mQueuePackets){
         super("Network Monitor");
+        
+        this.mQueuePackets = mQueuePackets;
         
         mJPanel = new JPanel();
         JLabel mJLabel = new JLabel("Witam w programie wspomagającym tworzenie modelu symulacyjnego");
@@ -77,7 +75,7 @@ public class MonitorWindow extends JFrame {
         
         mMenuPackets.add(mMenuPacketsInterfaces);
         menuItem = new JMenuItem("Model");
-        menuItem.addActionListener(new MenuActionListener(new DisplayPanel("model")));
+        menuItem.addActionListener(new MenuActionListener(new DisplayPanel("model",mQueuePackets)));
         mMenuPackets.add(menuItem);
         menuItem = new JMenuItem("Save");
         mMenuPackets.add(menuItem);
@@ -118,7 +116,7 @@ public class MonitorWindow extends JFrame {
         if(list != null){
             for(String name : list){
                 JMenuItem menuItem = new JMenuItem(name);
-                menuItem.addActionListener(new MenuActionListener(new DisplayPanel(name)));//set class for this special panel
+                menuItem.addActionListener(new MenuActionListener(new DisplayPanel(name,mQueuePackets)));//set class for this special panel
                 mMenuPacketsInterfaces.add(menuItem);
             }
             
@@ -133,6 +131,8 @@ public class MonitorWindow extends JFrame {
         private JPanel mJPanel;
         
         public MenuActionListener(JPanel mJPanel){
+//            if(mJPanel != null)
+//                this.mJPanel.removeAll();
             this.mJPanel = mJPanel;
         }
         
@@ -154,5 +154,9 @@ public class MonitorWindow extends JFrame {
         
         this.invalidate();        
         this.validate();
+    }
+    
+    public JPanel getJPanel(){
+        return this.mJPanel;
     }
 }

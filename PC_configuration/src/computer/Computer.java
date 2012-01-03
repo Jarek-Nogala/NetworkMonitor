@@ -3,6 +3,8 @@ package computer;
 
 import computer.elevation.Elevation;
 import computer.services.Net;
+import computer.services.Sc;
+import computer.services.ServiceObj;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -13,6 +15,19 @@ public class Computer {
     
     public static void main(String[] args) {
         makeDialog();
+        
+        Sc mSc = new Sc();
+        for(ServiceObj i : mSc.getServicesList()){
+            addText(i.DISPLAY_NAME + "  :   " + i.SERVICE_NAME);
+        }
+//        Vector names = mSc.getListOfServices();
+//
+//        String Effect = "";
+//        Computer.addText("Run matafaka");
+//        for(int i = 0; i < names.size(); i++){
+//            Effect += Net.getInfoAboutService(9,(String) names.elementAt(i)) + '\n';
+//        }
+//        addText(Effect);
 //        if(args.length >0 && args[0].equals("elevated")){
 //            //do program
 //            Net netObj = new Net();

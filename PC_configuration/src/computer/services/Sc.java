@@ -19,12 +19,21 @@ public class Sc {
     //define commands
     //define regex for output
     //define function for execution and getting output
-    private final static String commandNetStart       = "NET START %s";
-    
-    
-    
+    private final static String commandNetStart = "NET START %s";
     private Vector<ServiceObj> servicesList;
     
+    //nazwy danych
+    public String dataName1 = "SERVICE_NAME";
+    public String dataName2 = "DISPLAY_NAME";
+    public String dataName3 = "TYPE_VALUE";
+    public String dataName4 = "TYPE_NAME";
+    public String dataName5 = "STATE_VALUE";
+    public String dataName6 = "STATE_NAME";
+    public String dataName7 = "STATE_LIST";
+    
+    public Vector<ServiceObj> getServicesList(){
+        return servicesList;
+    }
     
     public Sc(){
         servicesList = createListOfServices();
@@ -76,20 +85,20 @@ public class Sc {
         for(String line : service.split("\n")){
             switch(lineNumber){
                 case 0 : 
-                    SERVICE_NAME = line.replaceAll(":", ""); 
+                    SERVICE_NAME = line.replaceAll(".*:", ""); 
                     break;
                 case 1 : 
                     DISPLAY_NAME = line.replaceAll(".*:", "");
                     break;
                 case 2 : 
-                    String 
-                    TYPE_VALUE = 
-                    TYPE_NAME = line.replaceAll(".*:", "");
+//                    String 
+//                    TYPE_VALUE = 
+//                    TYPE_NAME = line.replaceAll(".*:", "");
                     break;
                 case 3 : 
-                    STATE_VALUE; 
-                    STATE_NAME;
-                    STATE_LISTbreak;
+//                    STATE_VALUE; 
+//                    STATE_NAME;
+//                    STATE_LISTbreak;
                     break;         
             }
             

@@ -7,8 +7,10 @@ package monitor.threads;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 import monitor.Log;
@@ -21,6 +23,8 @@ import monitor.network.PortReader;
 public class PortCaptorThread extends Thread {
     
     private NetworkInterface device;
+    private BlockingQueue<String> mQueuePackets;
+    
     private JpcapCaptor captor = null;
     private PortReader mListener = null;
     
@@ -32,8 +36,9 @@ public class PortCaptorThread extends Thread {
      * @param device
      *          it's the NetworkInterface from which packets will be sniffed
      */
-    public PortCaptorThread(NetworkInterface device){
+    public PortCaptorThread(NetworkInterface device, BlockingQueue<String> mQueuePackets){
         this.device = device;
+        this.mQueuePackets = mQueuePackets;
     }
     
     @Override
@@ -49,7 +54,7 @@ public class PortCaptorThread extends Thread {
             //using interface to listen for packets
             this.captor = JpcapCaptor.openDevice(device, 65535, false, 20);
             this.captor.setPacketReadTimeout(100);
-            this.mListener =  new PortReader(mFile);
+            this.mListener =  new PortReader(mFile,mQueuePackets);
             this.captor.loopPacket(-1,this.mListener);
         } catch (IOException ex) {
             if(this.captor != null)

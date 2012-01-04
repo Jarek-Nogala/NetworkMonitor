@@ -47,8 +47,8 @@ public class Monitor{
 //        System.out.println("Sluchanie portow");
         
         
-//        PortListener x = new PortListener(mQueuePackets);
-//        x.startAll();
+        PortListener x = new PortListener(mQueuePackets);
+        x.startAll();
         
 //        try {
 //            Thread.sleep(10000);

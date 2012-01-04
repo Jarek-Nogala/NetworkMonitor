@@ -2,27 +2,19 @@ package monitor.network;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.TextField;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import monitor.Log;
 import monitor.gui.Dimens;
 
 /**
- * Class extending JPanel for creating window to display cathcing packets,
+ * Class extending JPanel for creating window to display catching packets,
  * destination file, and list of interfaces (beta)
  * @author Jarosław Nogała
  */

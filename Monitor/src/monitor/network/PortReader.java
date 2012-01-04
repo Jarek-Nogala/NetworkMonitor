@@ -68,6 +68,24 @@ public class PortReader implements PacketReceiver {
             try {
                 Log.i("PortReader","Put in queue: " + packet.toString());
                 this.mQueuePackets.put(packet.toString());
+                
+                Log.i("PortReader","Put in queue: " + packet.datalink.toString());
+                this.mQueuePackets.put(packet.datalink.toString());
+                
+                String message  = "";
+                for(Byte character : packet.data)
+                    message += (char) character.intValue();
+                
+                Log.i("PortReader","Put in queue: " + "BODY: " + message);
+                this.mQueuePackets.put("BODY: " + message);
+                
+                message = "";
+                for(Byte character : packet.header)
+                    message += character;
+                
+                Log.i("PortReader","Put in queue: " + "HEAD:" + message);
+                this.mQueuePackets.put("HEAD:" + message);
+                
             } catch (InterruptedException ex) {
                 Log.i("PortReader","Queue put error: " + ex.getMessage());
             }

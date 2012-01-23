@@ -35,6 +35,9 @@ public class Computer {
         if(true){//args.length >0 && args[0].equals("elevated")){//
             //do program
             makeDialog();
+            
+            
+            /*
             addText("1");
             sigarProxy  = SigarProxyCache.newInstance(new Sigar());
             addText("2");
@@ -70,6 +73,10 @@ public class Computer {
                     addText("Exception: " + e.toString());
                 }
             }
+             * 
+             */
+            
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //routing table
 //                  for(NetRoute i :sigarProxy.getNetRouteList()){
 //                      addText(i.toString());

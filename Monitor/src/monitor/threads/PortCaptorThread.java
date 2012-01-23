@@ -28,8 +28,6 @@ public class PortCaptorThread extends Thread {
     private JpcapCaptor captor = null;
     private PortReader mListener = null;
     
-    private boolean flag = false;
-    
     private String TAG = "PortCaptorThread";
     /**
      * Constructor
@@ -67,10 +65,21 @@ public class PortCaptorThread extends Thread {
         if(this.captor != null)
             this.captor.close();
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        Log.i(TAG,"Thread end");
+        if(this.captor != null)
+            this.captor.close();
+        super.finalize();        
+    }
     
     @Override
     public synchronized void interrupt(){
-        Log.i("PortCaptorThread", "Listening thread should die.");
+//        Log.i("PortCaptorThread", "Listening thread should die.");
+        if(captor == null)
+            return;
+        
         this.captor.breakLoop();
         try {
             this.sleep(500);

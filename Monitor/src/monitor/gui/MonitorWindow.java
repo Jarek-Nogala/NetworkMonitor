@@ -114,7 +114,7 @@ public class MonitorWindow extends JFrame {
     
     public void updateInterfacesList(String[] list){
         if(list != null){
-            for(String name : list){
+            for(final String name : list){
                 JMenuItem menuItem = new JMenuItem(name);
                 menuItem.addActionListener(new MenuActionListener(new DisplayPanel(name,mQueuePackets)));//set class for this special panel
                 mMenuPacketsInterfaces.add(menuItem);

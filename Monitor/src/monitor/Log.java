@@ -14,8 +14,11 @@ public class Log {
      * @param text 
      *          the message of log
      */
+    
+    private static String textFormat = "%20s : %s\n";
+    
     public static void i(String TAG, String text){
-        System.out.println(TAG + ":      " + text);
+        System.out.printf(textFormat, TAG, text);
     }
     
     /*
